@@ -13,8 +13,5 @@ class UserServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryPort::class, UserRepository::class);
     }
 
-    public function boot()
-    {
-        //
-    }
+    public function boot() {}
 }
