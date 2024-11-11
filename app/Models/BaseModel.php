@@ -29,4 +29,14 @@ class BaseModel extends Model
     {
         return (string) Ulid::generate();
     }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = trim(strtolower($value));
+    }
+
+    public function getNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
 }

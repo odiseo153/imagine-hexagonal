@@ -2,10 +2,8 @@
 
 namespace App\Models;
 
-
-class Size extends BaseModel
+class Category extends BaseModel
 {
-
     protected $fillable = [
         'name',
     ];
