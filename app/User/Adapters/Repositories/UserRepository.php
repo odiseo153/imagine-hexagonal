@@ -23,11 +23,11 @@ class UserRepository implements UserRepositoryPort
         return new User($userModel->name, $userModel->email, $userModel->password, $userModel->username, $userModel->role);
     }
 
-    public function getAll(): LengthAwarePaginator
+    public function getAll(int $perPage): LengthAwarePaginator
     {
         return QueryBuilder::for(UserModel::class)
             ->allowedFilters(['name', 'email'])
             ->allowedSorts(['name', 'email', 'created_at'])
-            ->paginate();
+            ->paginate($perPage);
     }
 }

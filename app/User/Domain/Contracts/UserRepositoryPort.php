@@ -8,5 +8,5 @@ use \Illuminate\Contracts\Pagination\LengthAwarePaginator;
 interface UserRepositoryPort
 {
     public function create(User $user): User;
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(int $perPage): LengthAwarePaginator;
 }

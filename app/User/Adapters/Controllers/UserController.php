@@ -7,6 +7,8 @@ use App\User\Domain\Services\ListUsersService;
 use App\User\Http\Requests\CreateUserRequest;
 use App\User\Http\Resources\UserResource;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+
 
 class UserController
 {
@@ -19,9 +21,10 @@ class UserController
         $this->listUsersService = $listUsersService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $users = $this->listUsersService->execute();
+        $perPage = $request->query('per_page', 100);
+        $users = $this->listUsersService->execute($perPage);
         return UserResource::collection($users);
     }
 
