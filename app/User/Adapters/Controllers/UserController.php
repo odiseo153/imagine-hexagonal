@@ -4,6 +4,7 @@ namespace App\User\Adapters\Controllers;
 
 use App\Core\Controllers\BaseController;
 use App\User\Domain\Services\CreateUserService;
+use App\User\Domain\Services\FindUserByIdService;
 use App\User\Domain\Services\ListUsersService;
 use App\User\Http\Requests\CreateUserRequest;
 use App\User\Http\Resources\UserResource;
@@ -15,11 +16,13 @@ class UserController extends BaseController
 {
     private CreateUserService $createUserService;
     private ListUsersService $listUsersService;
+    private FindUserByIdService $findUserByIdService;
 
-    public function __construct(CreateUserService $createUserService, ListUsersService $listUsersService)
+    public function __construct(CreateUserService $createUserService, ListUsersService $listUsersService, FindUserByIdService $findUserByIdService)
     {
         $this->createUserService = $createUserService;
         $this->listUsersService = $listUsersService;
+        $this->findUserByIdService = $findUserByIdService;
     }
 
     public function index(Request $request)
@@ -33,5 +36,11 @@ class UserController extends BaseController
     {
         $user = $this->createUserService->execute($request->name, $request->email, $request->password, $request->username, $request->role);
         return response()->json(new UserResource($user), 201);
+    }
+
+    public function show($id)
+    {
+        $user = $this->findUserByIdService->execute($id);
+        return response()->json(new UserResource($user), 200);
     }
 }

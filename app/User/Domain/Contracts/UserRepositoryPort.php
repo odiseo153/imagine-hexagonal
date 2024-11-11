@@ -9,4 +9,5 @@ interface UserRepositoryPort
 {
     public function create(User $user): User;
     public function getAll(int $perPage): LengthAwarePaginator;
+    public function findById(string $id): User;
 }

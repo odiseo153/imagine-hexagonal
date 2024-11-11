@@ -4,6 +4,7 @@ namespace App\Auth\Adapters\Repositories;
 
 use App\Auth\Domain\Contracts\AuthRepositoryPort;
 use App\Auth\Domain\Entities\User;
+use App\Auth\Domain\Exceptions\InvalidCredentialsException;
 use Illuminate\Support\Facades\Auth;
 
 class AuthRepository implements AuthRepositoryPort
@@ -20,7 +21,7 @@ class AuthRepository implements AuthRepositoryPort
             ];
         }
 
-        return null;
+        throw new InvalidCredentialsException();
     }
 
     public function logout(): void
