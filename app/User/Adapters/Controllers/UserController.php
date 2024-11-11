@@ -25,7 +25,6 @@ class UserController extends BaseController
     public function index(Request $request)
     {
         $perPage = $this->getPerPage($request);
-        // return $perPage;
         $users = $this->listUsersService->execute($perPage);
         return UserResource::collection($users);
     }

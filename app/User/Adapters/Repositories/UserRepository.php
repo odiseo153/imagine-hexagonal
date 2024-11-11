@@ -21,12 +21,14 @@ class UserRepository extends BaseRepository implements UserRepositoryPort
             'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password,
+            'username' => $user->username,
+            'role' => $user->role,
         ]);
 
         return new User($userModel->name, $userModel->email, $userModel->password,  $userModel->username, $userModel->role);
     }
 
-    public function getAll(int $perPage = 15, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = []): LengthAwarePaginator
+    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = []): LengthAwarePaginator
     {
         return parent::getAll($perPage, $filters, $sorts, $defaultSort, $with);
     }
