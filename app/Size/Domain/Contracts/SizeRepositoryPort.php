@@ -10,4 +10,5 @@ interface SizeRepositoryPort
     public function create(Size $size): Size;
     public function getAll(int $perPage): LengthAwarePaginator;
     public function findById(string $id): Size;
+    public function update(string $id, array $data): Size;
 }
