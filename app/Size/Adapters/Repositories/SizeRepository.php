@@ -53,4 +53,16 @@ class SizeRepository  extends BaseRepository implements SizeRepositoryPort
             $sizeModel->updated_at->toDateTimeString()
         );
     }
+
+    public function findByName(string $name): Size
+    {
+        $sizeModel = SizeModel::where('name', $name)->firstOrFail();
+
+        return new Size(
+            $sizeModel->name,
+            $sizeModel->id,
+            $sizeModel->created_at->toDateTimeString(),
+            $sizeModel->updated_at->toDateTimeString()
+        );
+    }
 }

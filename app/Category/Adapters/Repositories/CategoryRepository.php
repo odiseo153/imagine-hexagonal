@@ -53,4 +53,16 @@ class CategoryRepository   extends BaseRepository implements CategoryRepositoryP
             $categoryModel->updated_at->toDateTimeString()
         );
     }
+
+    public function findByName(string $name): Category
+    {
+        $categoryModel = CategoryModel::where('name', $name)->firstOrFail();
+
+        return new Category(
+            $categoryModel->name,
+            $categoryModel->id,
+            $categoryModel->created_at->toDateTimeString(),
+            $categoryModel->updated_at->toDateTimeString()
+        );
+    }
 }

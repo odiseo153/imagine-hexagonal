@@ -10,4 +10,5 @@ interface CategoryRepositoryPort
     public function getAll(int $perPage);
     public function findById(string $id): Category;
     public function update(string $id, array $data): Category;
+    public function findByName(string $name): Category;
 }

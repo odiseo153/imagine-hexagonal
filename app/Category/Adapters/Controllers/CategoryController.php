@@ -3,8 +3,12 @@
 namespace App\Category\Adapters\Controllers;
 
 use App\Category\Domain\Services\CreateCategoryService;
+use App\Category\Domain\Services\FindCategoryByIdService;
+use App\Category\Domain\Services\FindCategoryByNameService;
 use App\Category\Domain\Services\ListCategoriesService;
+use App\Category\Domain\Services\UpdateCategoryService;
 use App\Category\Http\Requests\CreateCategoryRequest;
+use App\Category\Http\Requests\UpdateCategoryRequest;
 use App\Category\Http\Resources\CategoryResource;
 use App\Core\Controllers\BaseController;
 use Illuminate\Http\JsonResponse;
@@ -16,12 +20,23 @@ class CategoryController extends BaseController
 {
     private CreateCategoryService $createCategoryService;
     private ListCategoriesService $listCategoriesService;
+    private FindCategoryByIdService $findCategoryByIdService;
+    private FindCategoryByNameService $findCategoryByNameService;
+    private UpdateCategoryService $updateCategoryService;
 
 
-    public function __construct(CreateCategoryService $createCategoryService, ListCategoriesService $listCategoriesService)
-    {
+    public function __construct(
+        CreateCategoryService $createCategoryService,
+        ListCategoriesService $listCategoriesService,
+        FindCategoryByIdService $findCategoryByIdService,
+        FindCategoryByNameService $findCategoryByNameService,
+        UpdateCategoryService $updateCategoryService
+    ) {
         $this->createCategoryService = $createCategoryService;
         $this->listCategoriesService = $listCategoriesService;
+        $this->findCategoryByIdService = $findCategoryByIdService;
+        $this->findCategoryByNameService = $findCategoryByNameService;
+        $this->updateCategoryService = $updateCategoryService;
     }
 
     public function index(Request $request)
@@ -39,15 +54,21 @@ class CategoryController extends BaseController
             ->setStatusCode(201);
     }
 
-    // public function show($id)
-    // {
-    //     $user = $this->findSizeByIdService->execute($id);
-    //     return  new SizeResource($user);
-    // }
+    public function show($id)
+    {
+        $user = $this->findCategoryByIdService->execute($id);
+        return  new CategoryResource($user);
+    }
 
-    // public function update(UpdateSizeRequest $request, string $id): JsonResponse
-    // {
-    //     $size = $this->updateSizeService->execute($id, $request->validated());
-    //     return response()->json(new SizeResource($size), 200);
-    // }
+    public function showCategoryByName($name)
+    {
+        $user = $this->findCategoryByNameService->execute($name);
+        return  new CategoryResource($user);
+    }
+
+    public function update(UpdateCategoryRequest $request, string $id)
+    {
+        $size = $this->updateCategoryService->execute($id, $request->validated());
+        return   new CategoryResource($size);
+    }
 }
