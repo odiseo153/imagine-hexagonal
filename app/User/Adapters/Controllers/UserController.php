@@ -2,6 +2,7 @@
 
 namespace App\User\Adapters\Controllers;
 
+use App\Core\Controllers\BaseController;
 use App\User\Domain\Services\CreateUserService;
 use App\User\Domain\Services\ListUsersService;
 use App\User\Http\Requests\CreateUserRequest;
@@ -10,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
-class UserController
+class UserController extends BaseController
 {
     private CreateUserService $createUserService;
     private ListUsersService $listUsersService;
@@ -23,7 +24,8 @@ class UserController
 
     public function index(Request $request)
     {
-        $perPage = $request->query('per_page', 100);
+        $perPage = $this->getPerPage($request);
+        // return $perPage;
         $users = $this->listUsersService->execute($perPage);
         return UserResource::collection($users);
     }
