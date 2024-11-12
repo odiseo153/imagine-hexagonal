@@ -3,9 +3,9 @@
 namespace App\Product\Domain\Services;
 
 use App\Product\Domain\Contracts\ProductRepositoryPort;
-use App\Product\Domain\Entities\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CreateProductService
+class ListProductsService
 {
     private ProductRepositoryPort $productRepository;
 
@@ -14,9 +14,8 @@ class CreateProductService
         $this->productRepository = $productRepository;
     }
 
-    public function execute(array $data): Product
+    public function execute(int $perPage): LengthAwarePaginator
     {
-        $product = new Product($data);
-        return $this->productRepository->create($product);
+        return $this->productRepository->getAll($perPage);
     }
 }

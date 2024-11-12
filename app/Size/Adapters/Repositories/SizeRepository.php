@@ -6,12 +6,18 @@ use App\Core\Repositories\BaseRepository;
 use App\Size\Domain\Contracts\SizeRepositoryPort;
 use App\Size\Domain\Entities\Size;
 use App\Models\Size as SizeModel;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SizeRepository  extends BaseRepository implements SizeRepositoryPort
 {
     public function __construct()
     {
         parent::__construct(SizeModel::class);
+    }
+
+    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = []): LengthAwarePaginator
+    {
+        return parent::getAll($perPage, $filters, $sorts, $defaultSort, $with);
     }
 
     public function create(Size $size): Size

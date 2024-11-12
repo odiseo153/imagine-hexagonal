@@ -2,9 +2,9 @@
 
 namespace App\Product\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Core\Http\Requests\BaseFormRequest;
 
-class CreateProductRequest extends FormRequest
+class CreateProductRequest extends BaseFormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,6 +14,16 @@ class CreateProductRequest extends FormRequest
         return true;
     }
 
+
+
+    public function validated($key = null, $default = null)
+    {
+        $validatedData = parent::validated();
+        // Add user_id after validation
+        $validatedData['user_id'] = $this->user()->id;
+
+        return $validatedData;
+    }
     /**
      * Get the validation rules that apply to the request.
      *
@@ -23,14 +33,14 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'salePrice' => 'required|numeric|min:0',
-            'costPrice' => 'required|numeric|min:0',
-            'filledWeight' => 'required|numeric|min:0',
-            'emptyWeight' => 'required|numeric|min:0',
-            'sizeId' => 'required|exists:sizes,id',
-            'categoryId' => 'required|exists:categories,id',
-            'canSellInGate' => 'required|boolean',
-            'canSellInVip' => 'required|boolean',
+            'sale_price' => 'required|numeric|min:0',
+            'cost_price' => 'required|numeric|min:0',
+            'filled_weight' => 'required|numeric|min:0',
+            'empty_weight' => 'required|numeric|min:0',
+            'size_id' => 'required|exists:sizes,id',
+            'category_id' => 'required|exists:categories,id',
+            'can_sell_in_gate' => 'required|boolean',
+            'can_sell_in_vip' => 'required|boolean',
         ];
     }
 }

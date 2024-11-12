@@ -39,8 +39,9 @@ class SizeController extends BaseController
         return SizeResource::collection($sizes);
     }
 
-    public function store(CreateSizeRequest $request): JsonResponse
+    public function store(CreateSizeRequest $request)
     {
+        return $request->validated();
         $size = $this->createSizeService->execute($request->name);
         return (new SizeResource($size))
             ->response()

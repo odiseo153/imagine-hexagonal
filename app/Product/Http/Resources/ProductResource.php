@@ -2,6 +2,8 @@
 
 namespace App\Product\Http\Resources;
 
+use App\Category\Http\Resources\CategoryResource;
+use App\Size\Http\Resources\SizeResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Number;
@@ -36,27 +38,8 @@ class ProductResource extends JsonResource
             ],
 
             'relationships' => (object)[
-                'category' => [
-                    'data' => [
-                        'type' => 'categories',
-                        'id' => $this->categoryId,
-                        'name' => $this->category->name,
-                    ],
-                    'links' => [
-                        'self' => route('categories.show', ['category' => $this->categoryId])
-                    ],
-                ],
-                'size' => [
-                    'data' => [
-                        'type' => 'sizes',
-                        'id' => $this->sizeId,
-                        'name' => $this->size->name,
-                    ],
-                    'links' => [
-                        'self' => route('sizes.show', ['size' => $this->sizeId])
-                    ]
-                ]
-
+                'category' => new CategoryResource((object) $this->category),
+                'size' =>  new SizeResource((object) $this->size),
             ],
         ];
     }

@@ -6,12 +6,18 @@ use App\Category\Domain\Contracts\CategoryRepositoryPort;
 use App\Category\Domain\Entities\Category;
 use App\Core\Repositories\BaseRepository;
 use App\Models\Category as CategoryModel;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CategoryRepository   extends BaseRepository implements CategoryRepositoryPort
 {
     public function __construct()
     {
         parent::__construct(CategoryModel::class);
+    }
+
+    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = []): LengthAwarePaginator
+    {
+        return parent::getAll($perPage, $filters, $sorts, $defaultSort, $with);
     }
 
     public function create(Category $category): Category
