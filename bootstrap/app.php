@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__ . '/../routes/auth.php',
             __DIR__ . '/../routes/sizes.php',
             __DIR__ . '/../routes/categories.php',
+            __DIR__ . '/../routes/products.php'
         ],
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
@@ -147,7 +148,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'errors' => [
                     [
                         'status' => 405,
-                        'message' => 'Bad method call',
+                        'message' => $e->getMessage(),
                         'source' => $request->path()
                     ]
                 ]
