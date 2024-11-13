@@ -8,4 +8,5 @@ return [
     \App\Category\CategoryServiceProvider::class,
     \App\Product\ProductServiceProvider::class,
     \App\Location\LocationServiceProvider::class,
+    \App\Petition\PetitionServiceProvider::class,
 ];

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,18 @@ class LocationFactory extends Factory
      */
     public function definition(): array
     {
+        $types = [
+            'general',
+            'puerta',
+            'office',
+            'barra',
+
+        ];
         return [
-            //
+            'type' => $types[array_rand($types)],
+            'name' => $this->faker->company, // Random name for default
+            'user_id' => User::factory(),
+            'user_in_charge_id' => User::factory(),
         ];
     }
 }
