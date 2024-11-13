@@ -26,49 +26,25 @@ class SizeRepository  extends BaseRepository implements SizeRepositoryPort
             'name' => $size->name,
         ]);
 
-        return new Size(
-            $sizeModel->name,
-            $sizeModel->id,
-            $sizeModel->created_at->toDateTimeString(),
-            $sizeModel->updated_at->toDateTimeString()
-        );
+        return new Size($sizeModel->toArray());
     }
 
     public function findById(string $id): Size
     {
         $sizeModel = SizeModel::findOrFail($id);
-
-        return new Size(
-            $sizeModel->name,
-            $sizeModel->id,
-            $sizeModel->created_at->toDateTimeString(),
-            $sizeModel->updated_at->toDateTimeString()
-        );
+        return new Size($sizeModel->toArray());
     }
 
     public function update(string $id, array $data): Size
     {
         $sizeModel = SizeModel::findOrFail($id);
-
         $sizeModel->update($data);
-
-        return new Size(
-            $sizeModel->name,
-            $sizeModel->id,
-            $sizeModel->created_at->toDateTimeString(),
-            $sizeModel->updated_at->toDateTimeString()
-        );
+        return new Size($sizeModel->toArray());
     }
 
     public function findByName(string $name): Size
     {
         $sizeModel = SizeModel::where('name', $name)->firstOrFail();
-
-        return new Size(
-            $sizeModel->name,
-            $sizeModel->id,
-            $sizeModel->created_at->toDateTimeString(),
-            $sizeModel->updated_at->toDateTimeString()
-        );
+        return new Size($sizeModel->toArray());
     }
 }

@@ -14,9 +14,9 @@ class CreateSizeService
         $this->sizeRepository = $sizeRepository;
     }
 
-    public function execute(string $name): Size
+    public function execute(array $data): Size
     {
-        $size = new Size($name);
+        $size = new Size($data);
         return $this->sizeRepository->create($size);
     }
 }

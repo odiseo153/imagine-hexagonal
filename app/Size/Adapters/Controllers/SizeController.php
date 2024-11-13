@@ -41,8 +41,8 @@ class SizeController extends BaseController
 
     public function store(CreateSizeRequest $request)
     {
-        return $request->validated();
-        $size = $this->createSizeService->execute($request->name);
+        $data = $request->validated();
+        $size = $this->createSizeService->execute($data);
         return (new SizeResource($size))
             ->response()
             ->setStatusCode(201);
