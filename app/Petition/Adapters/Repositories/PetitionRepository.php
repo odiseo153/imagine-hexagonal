@@ -37,4 +37,13 @@ class PetitionRepository extends BaseRepository implements PetitionRepositoryPor
         $petitionModel = PetitionModel::findOrFail($id);
         return new Petition($petitionModel->toArray());
     }
+
+    public function cancelById(string $id): Petition
+    {
+        $petitionModel = PetitionModel::findOrFail($id);
+        $petitionModel->status = 'cancelado';
+        $petitionModel->save();
+
+        return new Petition($petitionModel->toArray());
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Petition\Adapters\Controllers;
 
 use App\Core\Controllers\BaseController;
+use App\Petition\Domain\Services\CancelPetitionByIdService;
 use App\Petition\Domain\Services\CreatePetitionService;
 use App\Petition\Domain\Services\FindByIdPetitionService;
 use App\Petition\Domain\Services\ListPetitionsService;
@@ -15,15 +16,18 @@ class PetitionController extends BaseController
     private CreatePetitionService $createPetitionService;
     private ListPetitionsService $listPetitionsService;
     private FindByIdPetitionService $findByIdPetitionService;
+    private CancelPetitionByIdService $cancelPetitionByIdService;
 
     public function __construct(
         CreatePetitionService $createPetitionService,
         ListPetitionsService $listPetitionsService,
-        FindByIdPetitionService $findByIdPetitionService
+        FindByIdPetitionService $findByIdPetitionService,
+        CancelPetitionByIdService $cancelPetitionByIdService
     ) {
         $this->createPetitionService = $createPetitionService;
         $this->listPetitionsService = $listPetitionsService;
         $this->findByIdPetitionService = $findByIdPetitionService;
+        $this->cancelPetitionByIdService = $cancelPetitionByIdService;
     }
 
     public function index(Request $request)
@@ -43,6 +47,12 @@ class PetitionController extends BaseController
     public function show($id)
     {
         $petition = $this->findByIdPetitionService->execute($id);
+        return new PetitionResource($petition);
+    }
+
+    public function cancel($id)
+    {
+        $petition = $this->cancelPetitionByIdService->execute($id);
         return new PetitionResource($petition);
     }
 }
