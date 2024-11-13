@@ -6,5 +6,6 @@ return [
     \App\Auth\AuthServiceProvider::class,
     \App\Size\SizeServiceProvider::class,
     \App\Category\CategoryServiceProvider::class,
-    \App\Product\ProductServiceProvider::class
+    \App\Product\ProductServiceProvider::class,
+    \App\Location\LocationServiceProvider::class,
 ];
