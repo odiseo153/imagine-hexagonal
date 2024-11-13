@@ -37,6 +37,11 @@ class Product extends BaseModel
         return $this->belongsTo(Category::class);
     }
 
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
+
     public function getFormattedName()
     {
         return ucfirst($this->name . ' (' . $this->size->name . ')');

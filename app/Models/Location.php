@@ -16,4 +16,9 @@ class Location extends BaseModel
     {
         return $this->belongsTo(User::class, 'user_in_charge_id');
     }
+
+    public function inventories()
+    {
+        return $this->hasMany(Inventory::class);
+    }
 }
