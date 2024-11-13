@@ -44,4 +44,14 @@ class LocationRepository extends BaseRepository implements LocationRepositoryPor
             'userInCharge' => $locationModel->userInCharge->toArray()
         ]);
     }
+
+    public function findByName(string $name): Location
+    {
+        $locationModel = LocationModel::where('name', $name)->firstOrFail();
+
+        return new Location($locationModel->toArray() + [
+            'user' => $locationModel->user->toArray(),
+            'userInCharge' => $locationModel->userInCharge->toArray()
+        ]);
+    }
 }
