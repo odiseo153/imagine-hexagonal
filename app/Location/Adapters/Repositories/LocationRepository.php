@@ -15,7 +15,7 @@ class LocationRepository extends BaseRepository implements LocationRepositoryPor
         parent::__construct(LocationModel::class);
     }
 
-    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = ['category', 'size']): LengthAwarePaginator
+    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = ['user', 'userInCharge']): LengthAwarePaginator
     {
         return  parent::getAll($perPage, $filters, $sorts, $defaultSort, $with);
     }
