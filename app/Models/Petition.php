@@ -12,4 +12,9 @@ class Petition extends BaseModel
         'to_location_id',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

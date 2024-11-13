@@ -16,7 +16,7 @@ class PetitionRepository extends BaseRepository implements PetitionRepositoryPor
         parent::__construct(PetitionModel::class);
     }
 
-    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = ['user', 'userInCharge']): LengthAwarePaginator
+    public function getAll(int $perPage, array $filters = [], array $sorts = [], string $defaultSort = 'updated_at', array $with = ['user']): LengthAwarePaginator
     {
         return  parent::getAll($perPage, $filters, $sorts, $defaultSort, $with);
     }
