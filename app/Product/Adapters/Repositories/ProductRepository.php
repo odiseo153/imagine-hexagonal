@@ -43,4 +43,12 @@ class ProductRepository extends BaseRepository implements ProductRepositoryPort
         $productModel = ProductModel::with(['category', 'size'])->findOrFail($id);
         return new Product($productModel->toArray());
     }
+
+    public function update(string $id, array $data): Product
+    {
+        $productModel = ProductModel::findOrFail($id);
+        $productModel->update($data);
+        $productModel->load(['category', 'size']);
+        return new Product($productModel->toArray());
+    }
 }
