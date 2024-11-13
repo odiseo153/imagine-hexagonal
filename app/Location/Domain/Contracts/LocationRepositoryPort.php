@@ -11,4 +11,5 @@ interface LocationRepositoryPort
     public function getAll(int $perPage): LengthAwarePaginator;
     public function findById(string $id): Location;
     public function findByName(string $name): Location;
+    public function update(string $id, array $data): Location;
 }

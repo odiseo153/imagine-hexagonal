@@ -8,7 +8,9 @@ use App\Location\Domain\Services\CreateLocationService;
 use App\Location\Domain\Services\FindLocationByIdService;
 use App\Location\Domain\Services\FindLocationByNameService;
 use App\Location\Domain\Services\ListLocationsService;
+use App\Location\Domain\Services\UpdateLocationService;
 use App\Location\Http\Requests\CreateLocationRequest;
+use App\Location\Http\Requests\UpdateLocationRequest;
 use Illuminate\Http\Request;
 
 
@@ -18,17 +20,20 @@ class LocationController extends BaseController
     private ListLocationsService $listLocationsService;
     private FindLocationByIdService $findLocationByIdService;
     private FindLocationByNameService $findLocationByNameService;
+    private  UpdateLocationService $updateLocationService;
 
     public function __construct(
         CreateLocationService $createLocationService,
         ListLocationsService $listLocationsService,
         FindLocationByIdService $findLocationByIdService,
-        FindLocationByNameService $findLocationByNameService
+        FindLocationByNameService $findLocationByNameService,
+        UpdateLocationService $updateLocationService
     ) {
         $this->createLocationService = $createLocationService;
         $this->listLocationsService = $listLocationsService;
         $this->findLocationByIdService = $findLocationByIdService;
         $this->findLocationByNameService = $findLocationByNameService;
+        $this->updateLocationService = $updateLocationService;
     }
 
     public function index(Request $request)
@@ -54,6 +59,13 @@ class LocationController extends BaseController
     public function showByName(string $name)
     {
         $location = $this->findLocationByNameService->execute($name);
+        return new LocationResource($location);
+    }
+
+    public function update(UpdateLocationRequest $request, string $id)
+    {
+        $data = $request->validated();
+        $location = $this->updateLocationService->execute($id, $data);
         return new LocationResource($location);
     }
 }
