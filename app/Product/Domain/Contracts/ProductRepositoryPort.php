@@ -9,4 +9,5 @@ interface ProductRepositoryPort
 {
     public function create(Product $product): Product;
     public function getAll(int $perPage): LengthAwarePaginator;
+    public function findById(string $id): Product;
 }

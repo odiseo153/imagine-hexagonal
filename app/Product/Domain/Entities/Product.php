@@ -6,36 +6,36 @@ class Product
 {
     public $id;
     public $name;
-    public $costPrice;
-    public $salePrice;
-    public $filledWeight;
-    public $emptyWeight;
-    public $canSellInVip;
-    public $canSellInGate;
-    public $userId;
-    public $categoryId;
-    public $sizeId;
+    public $cost_price;
+    public $sale_price;
+    public $filled_weight;
+    public $empty_weight;
+    public $can_sell_in_vip;
+    public $can_sell_in_gate;
+    public $user_id;
+    public $category_id;
+    public $size_id;
+    public $created_at;
+    public $updated_at;
     public $category;
     public $size;
-    public $createdAt;
-    public $updatedAt;
 
     public function __construct(array $data)
     {
         $this->id = $data['id'] ?? null;
         $this->name = $data['name'];
-        $this->costPrice = $data['cost_price'];
-        $this->salePrice = $data['sale_price'];
-        $this->filledWeight = $data['filled_weight'];
-        $this->emptyWeight = $data['empty_weight'];
-        $this->canSellInVip = $data['can_sell_in_vip'];
-        $this->canSellInGate = $data['can_sell_in_gate'];
-        $this->userId = $data['user_id'];
-        $this->categoryId = $data['category_id'];
-        $this->sizeId = $data['size_id'];
+        $this->cost_price = $data['cost_price'];
+        $this->sale_price = $data['sale_price'];
+        $this->filled_weight = $data['filled_weight'];
+        $this->empty_weight = $data['empty_weight'];
+        $this->can_sell_in_vip = $data['can_sell_in_vip'];
+        $this->can_sell_in_gate = $data['can_sell_in_gate'];
+        $this->user_id = $data['user_id'];
+        $this->category_id = $data['category_id'];
+        $this->size_id = $data['size_id'];
+        $this->created_at = $data['created_at'] ?? null;
+        $this->updated_at = $data['updated_at'] ?? null;
         $this->category = $data['category'] ?? null;
         $this->size = $data['size'] ?? null;
-        $this->createdAt = $data['created_at'] ?? null;
-        $this->updatedAt = $data['updated_at'] ?? null;
     }
 }

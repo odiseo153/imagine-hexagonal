@@ -4,6 +4,7 @@ namespace App\Product\Adapters\Controllers;
 
 use App\Core\Controllers\BaseController;
 use App\Product\Domain\Services\CreateProductService;
+use App\Product\Domain\Services\FindProductByIdService;
 use App\Product\Domain\Services\ListProductsService;
 use App\Product\Http\Requests\CreateProductRequest;
 use App\Product\Http\Resources\ProductResource;
@@ -15,11 +16,16 @@ class ProductController  extends BaseController
 {
     private CreateProductService $createProductService;
     private ListProductsService $listProductsService;
+    private FindProductByIdService $findProductByIdService;
 
-    public function __construct(CreateProductService $createProductService, ListProductsService $listProductsService)
-    {
+    public function __construct(
+        CreateProductService $createProductService,
+        ListProductsService $listProductsService,
+        FindProductByIdService $findProductByIdService
+    ) {
         $this->createProductService = $createProductService;
         $this->listProductsService = $listProductsService;
+        $this->findProductByIdService = $findProductByIdService;
     }
 
 
@@ -37,5 +43,13 @@ class ProductController  extends BaseController
         return (new ProductResource($product))
             ->response()
             ->setStatusCode(201);
+    }
+
+    public function show(string $id): JsonResponse
+    {
+        $product = $this->findProductByIdService->execute($id);
+        return (new ProductResource($product))
+            ->response()
+            ->setStatusCode(200);
     }
 }

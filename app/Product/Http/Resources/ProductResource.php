@@ -23,14 +23,14 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'name' => $this->name,
-                'salePrice' => Number::currency($this->salePrice, in: 'USD', locale: 'en_US'),
-                'costPrice' => Number::currency($this->costPrice, in: 'DOP', locale: 'es_DO'),
-                'createdAt' => $this->createdAt,
-                'updatedAt' => $this->updatedAt,
-                'filledWeight' => $this->filledWeight,
-                'emptyWeight' => $this->emptyWeight,
-                'canSellInGate' => $this->canSellInGate,
-                'canSellInVip' => $this->canSellInVip,
+                'salePrice' => Number::currency($this->sale_price, in: 'USD', locale: 'en_US'),
+                'costPrice' => Number::currency($this->cost_price, in: 'DOP', locale: 'es_DO'),
+                'createdAt' => $this->created_at,
+                'updatedAt' => $this->updated_at,
+                'filledWeight' => $this->filled_weight,
+                'emptyWeight' => $this->empty_weight,
+                'canSellInGate' => $this->can_sell_in_gate,
+                'canSellInVip' => $this->can_sell_in_vip,
             ],
 
             'links' => [
