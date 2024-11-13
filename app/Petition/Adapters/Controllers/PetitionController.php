@@ -4,6 +4,7 @@ namespace App\Petition\Adapters\Controllers;
 
 use App\Core\Controllers\BaseController;
 use App\Petition\Domain\Services\CreatePetitionService;
+use App\Petition\Domain\Services\FindByIdPetitionService;
 use App\Petition\Domain\Services\ListPetitionsService;
 use App\Petition\Http\Requests\CreatePetitionRequest;
 use App\Petition\Http\Resources\PetitionResource;
@@ -13,13 +14,16 @@ class PetitionController extends BaseController
 {
     private CreatePetitionService $createPetitionService;
     private ListPetitionsService $listPetitionsService;
+    private FindByIdPetitionService $findByIdPetitionService;
 
     public function __construct(
         CreatePetitionService $createPetitionService,
-        ListPetitionsService $listPetitionsService
+        ListPetitionsService $listPetitionsService,
+        FindByIdPetitionService $findByIdPetitionService
     ) {
         $this->createPetitionService = $createPetitionService;
         $this->listPetitionsService = $listPetitionsService;
+        $this->findByIdPetitionService = $findByIdPetitionService;
     }
 
     public function index(Request $request)
@@ -34,5 +38,11 @@ class PetitionController extends BaseController
         $data = $request->validated();
         $petition = $this->createPetitionService->execute($data);
         return response()->json(new PetitionResource($petition), 201);
+    }
+
+    public function show($id)
+    {
+        $petition = $this->findByIdPetitionService->execute($id);
+        return new PetitionResource($petition);
     }
 }

@@ -9,4 +9,5 @@ interface PetitionRepositoryPort
 {
     public function create(Petition $petition): Petition;
     public function getAll(int $perPage): LengthAwarePaginator;
+    public function findById(string $id): Petition;
 }

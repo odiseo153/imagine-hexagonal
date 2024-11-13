@@ -31,4 +31,10 @@ class PetitionRepository extends BaseRepository implements PetitionRepositoryPor
         ]);
         return new Petition($petitionModel->toArray());
     }
+
+    public function findById(string $id): Petition
+    {
+        $petitionModel = PetitionModel::findOrFail($id);
+        return new Petition($petitionModel->toArray());
+    }
 }
