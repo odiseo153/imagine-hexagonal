@@ -31,31 +31,19 @@ class UserRepository extends BaseRepository implements UserRepositoryPort
             'role' => $user->role,
         ]);
 
-        return new User(
-            $userModel->email,
-            $userModel->password,
-            $userModel->id,
-            $userModel->name,
-            $userModel->username,
-            $userModel->role,
-            $userModel->created_at->toDateTimeString(),
-            $userModel->updated_at->toDateTimeString()
-        );
+        return new User($userModel->toArray());
     }
 
     public function findById(string $id): User
     {
         $userModel = UserModel::findOrFail($id);
+        return new User($userModel->toArray());
+    }
 
-        return new User(
-            $userModel->email,
-            $userModel->password,
-            $userModel->name,
-            $userModel->username,
-            $userModel->role,
-            $userModel->id,
-            $userModel->created_at->toDateTimeString(),
-            $userModel->updated_at->toDateTimeString()
-        );
+    public function update(string $id, array $data): User
+    {
+        $userModel = UserModel::findOrFail($id);
+        $userModel->update($data);
+        return new User($userModel->toArray());
     }
 }

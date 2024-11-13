@@ -6,6 +6,7 @@ use App\User\Domain\Contracts\UserRepositoryPort;
 use App\User\Domain\Entities\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CreateUserService
 {
@@ -16,11 +17,12 @@ class CreateUserService
         $this->userRepository = $userRepository;
     }
 
-    public function execute(string $name, ?string $email, string $password, string $username, string $role): User
+    public function execute(array $data): User
     {
-        return DB::transaction(function () use ($name, $email, $password, $username, $role) {
-            $hashedPassword = Hash::make($password);
-            $user = new User($name, $email, $hashedPassword, $username, $role);
+        return DB::transaction(function () use ($data) {
+            $password = Hash::make($data['password']);
+            $data['password'] = $password;
+            $user = new User($data);
             return $this->userRepository->create($user);
         });
     }

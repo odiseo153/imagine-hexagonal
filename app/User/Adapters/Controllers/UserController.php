@@ -34,7 +34,8 @@ class UserController extends BaseController
 
     public function store(CreateUserRequest $request): JsonResponse
     {
-        $user = $this->createUserService->execute($request->name, $request->email, $request->password, $request->username, $request->role);
+        $data = $request->validated();
+        $user = $this->createUserService->execute($data);
         return response()->json(new UserResource($user), 201);
     }
 

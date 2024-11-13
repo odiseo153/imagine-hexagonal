@@ -13,23 +13,15 @@ class User
     public $created_at;
     public $updated_at;
 
-    public function __construct(
-        string $email,
-        string $password,
-        string $name = null,
-        string $username = null,
-        string $role = null,
-        ?string $id = null,
-        ?string $created_at = null,
-        ?string $updated_at = null
-    ) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
-        $this->username = $username;
-        $this->role = $role;
-        $this->created_at = $created_at;
-        $this->updated_at = $updated_at;
+    public function __construct(array $data)
+    {
+        $this->id = $data['id'] ?? null;
+        $this->name = $data['name'];
+        $this->email = $data['email'] ?? null;
+        $this->password = $data['password'] ?? null;
+        $this->username = $data['username'];
+        $this->role = $data['role'];
+        $this->created_at = $data['created_at'] ?? null;
+        $this->updated_at = $data['updated_at'] ?? null;
     }
 }
