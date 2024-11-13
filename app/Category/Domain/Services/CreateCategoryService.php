@@ -14,9 +14,9 @@ class CreateCategoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function execute(string $name): Category
+    public function execute(array $data): Category
     {
-        $category = new Category($name);
+        $category = new Category($data);
         return $this->categoryRepository->create($category);
     }
 }

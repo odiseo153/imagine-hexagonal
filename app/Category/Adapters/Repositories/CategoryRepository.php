@@ -8,7 +8,7 @@ use App\Core\Repositories\BaseRepository;
 use App\Models\Category as CategoryModel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CategoryRepository   extends BaseRepository implements CategoryRepositoryPort
+class CategoryRepository extends BaseRepository implements CategoryRepositoryPort
 {
     public function __construct()
     {
@@ -25,50 +25,25 @@ class CategoryRepository   extends BaseRepository implements CategoryRepositoryP
         $categoryModel = CategoryModel::create([
             'name' => $category->name,
         ]);
-
-        return new category(
-            $categoryModel->name,
-            $categoryModel->id,
-            $categoryModel->created_at->toDateTimeString(),
-            $categoryModel->updated_at->toDateTimeString()
-        );
+        return new category($categoryModel->toArray());
     }
 
     public function findById(string $id): Category
     {
         $categoryModel = CategoryModel::findOrFail($id);
-
-        return new Category(
-            $categoryModel->name,
-            $categoryModel->id,
-            $categoryModel->created_at->toDateTimeString(),
-            $categoryModel->updated_at->toDateTimeString()
-        );
+        return new Category($categoryModel->toArray());
     }
 
     public function update(string $id, array $data): Category
     {
         $categoryModel = CategoryModel::findOrFail($id);
-
         $categoryModel->update($data);
-
-        return new Category(
-            $categoryModel->name,
-            $categoryModel->id,
-            $categoryModel->created_at->toDateTimeString(),
-            $categoryModel->updated_at->toDateTimeString()
-        );
+        return new Category($categoryModel->toArray());
     }
 
     public function findByName(string $name): Category
     {
         $categoryModel = CategoryModel::where('name', $name)->firstOrFail();
-
-        return new Category(
-            $categoryModel->name,
-            $categoryModel->id,
-            $categoryModel->created_at->toDateTimeString(),
-            $categoryModel->updated_at->toDateTimeString()
-        );
+        return new Category($categoryModel->toArray());
     }
 }

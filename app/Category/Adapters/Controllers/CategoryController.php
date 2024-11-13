@@ -48,7 +48,8 @@ class CategoryController extends BaseController
 
     public function store(CreateCategoryRequest $request): JsonResponse
     {
-        $category = $this->createCategoryService->execute($request->name);
+        $data = $request->validated();
+        $category = $this->createCategoryService->execute($data);
         return (new CategoryResource($category))
             ->response()
             ->setStatusCode(201);
@@ -56,19 +57,19 @@ class CategoryController extends BaseController
 
     public function show($id)
     {
-        $user = $this->findCategoryByIdService->execute($id);
-        return  new CategoryResource($user);
+        $category = $this->findCategoryByIdService->execute($id);
+        return  new CategoryResource($category);
     }
 
     public function showCategoryByName($name)
     {
-        $user = $this->findCategoryByNameService->execute($name);
-        return  new CategoryResource($user);
+        $category = $this->findCategoryByNameService->execute($name);
+        return  new CategoryResource($category);
     }
 
     public function update(UpdateCategoryRequest $request, string $id)
     {
-        $size = $this->updateCategoryService->execute($id, $request->validated());
-        return   new CategoryResource($size);
+        $category = $this->updateCategoryService->execute($id, $request->validated());
+        return   new CategoryResource($category);
     }
 }
