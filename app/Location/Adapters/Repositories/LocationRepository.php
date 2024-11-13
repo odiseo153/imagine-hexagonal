@@ -34,4 +34,14 @@ class LocationRepository extends BaseRepository implements LocationRepositoryPor
             'userInCharge' => $locationModel->userInCharge->toArray()
         ]);
     }
+
+    public function findById(string $id): Location
+    {
+        $locationModel = LocationModel::findOrFail($id);
+
+        return new Location($locationModel->toArray() + [
+            'user' => $locationModel->user->toArray(),
+            'userInCharge' => $locationModel->userInCharge->toArray()
+        ]);
+    }
 }

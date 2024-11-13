@@ -50,8 +50,8 @@ class SizeController extends BaseController
 
     public function show($id)
     {
-        $user = $this->findSizeByIdService->execute($id);
-        return  new SizeResource($user);
+        $size = $this->findSizeByIdService->execute($id);
+        return  new SizeResource($size);
     }
 
     public function update(UpdateSizeRequest $request, string $id): JsonResponse
